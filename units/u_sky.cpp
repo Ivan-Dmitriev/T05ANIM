@@ -3,10 +3,10 @@
  *    Computer Graphics Support Group of 30 Phys-Math Lyceum
  *************************************************************/
 
-/* FILE NAME   : u_test.cpp
+/* FILE NAME   : u_sky.cpp
  * PURPOSE     : Animation project.
  *               Units implementation module.
- *               Test unit module.
+ *               Sky unit module.
  * PROGRAMMER  : CGSG-SummerCamp'2021.
  *               ID3
  * LAST UPDATE : 23.07.2021
@@ -25,25 +25,34 @@ namespace ivgl
   namespace units
   {
     /* First unit test */
-    class test_unit : public unit  
+    class sky_unit : public unit  
     {
+      prim *Pr;
     public:
-      prim Pr;
-      primitives Prs; 
       /* Constructor of test unit */
-      test_unit( anim *Ani )
+      sky_unit( anim *Ani )
       {
-        //Pr.PrimLoad(&Pr, "bin/models/cow.object");
-        Prs.Load(&Prs, "bin/models/target.g3dm");
-        //Pr->PrimLoad<ivgl::vertex::std>(Pr, "bin/models/cow.object");
+        material mtl;
+
+        mtl.Name = "sky sphere material";
+        mtl.Tex[0] = Ani->texture_manager::TexCreate("SkySphere.g32");
+        mtl.shd = Ani->shader_manager::ShaderCreate("SKY");
+        mtl.Ph = std::pair(1.0, -1);
+  
+        std::vector<vertex::std> NewV;
+        std::vector<INT> NewI; 
+        topology::points<vertex::std> T(NewV, NewI);
+
+        Pr = Ani->primitive_manager::PrimCreate(T);
+        Pr->Mtl = Ani->material_manager::MtlCreate(mtl);
+        Pr->NumOfElements = 1;
       } /* End of 'constructor' function */
-
       /* Destructor of test unit */
-      ~test_unit( VOID )
+      ~sky_unit( VOID )
       {
-        //Pr->Free();
+        Pr->Free();
       } /* End of 'destructor' function */
-
+      
      /* Unit response function.
       * ARGUMENTS: 
       *   - Pointer to animation system:
@@ -52,21 +61,6 @@ namespace ivgl
       */
       VOID Response( anim *Ani ) override
       {
-        /*
-        CHAR Buf[100], Buf2[100];
- 
-        sprintf(Buf, "%.3f\n", Ani->FPS);
-        SetWindowTextA(Ani->hWnd, Buf);
-        if (Ani->KeysClick['F'])
-          Ani->FlipFullScreen();
-
-        if (Ani->Keys[VK_LMENU])
-        {
-          sprintf(Buf2, "%i\n", Ani->MouseZ);
-          //OutputDebugStringA(Buf2);
-        }
-        //OutputDebugStringA("WoW");
-        */
       } /* End of 'Response' function */
 
      /* Unit render function.
@@ -77,19 +71,17 @@ namespace ivgl
       */
       VOID Render( anim *Ani ) override
       {
-        CHAR Buf[100];
- 
-        sprintf(Buf, "%.3f\n", Ani->FPS);
-        OutputDebugStringA(Buf);
-        //SetWindowTextA(Ani->win::hWnd, Buf);
-        //Ani->PrimDraw(&Pr, matr().Identity() /* matr().RotateZ(sin(4 * Ani->Time) * 20) */ );
-        Ani->PrimitivesDraw(&Prs, matr().Scale(vec3(0.01)) /* matr().RotateZ(sin(4 * Ani->Time) * 20) */ );
+        glDisable(GL_DEPTH_TEST);
+        glDepthMask(FALSE);
+        Ani->PrimDraw(Pr, matr::Identity());
+        glDepthMask(TRUE);
+        glEnable(GL_DEPTH_TEST);
       } /* End of 'Render' function */
-    }; /* End of 'test_unit' class */
+    }; /* End of 'sky_unit' class */
   } /* end of 'units' namespace */
 } /* end of 'ivgl' namespace */
 
-static ivgl::anim::unit_register<ivgl::units::test_unit> _("TestUnit");
+static ivgl::anim::unit_register<ivgl::units::sky_unit> _("SkyUnit");
 
-/* END OF 'u_test.cpp' FILE */
+/* END OF 'u_sky.cpp' FILE */
 

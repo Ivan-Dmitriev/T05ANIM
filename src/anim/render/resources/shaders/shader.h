@@ -154,7 +154,7 @@ namespace ivgl
     template<typename value_type>
       VOID UniSetLoc( const CHAR * Name, const value_type &Value, INT Loc )
       {
-        if (Loc != -1)
+        if (Loc != -1 && Loc >= 0)
         {
           if constexpr (std::is_convertible_v<FLT, value_type>)
             glUniform1f(Loc, Value);

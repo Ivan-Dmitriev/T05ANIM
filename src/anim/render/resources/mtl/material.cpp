@@ -47,6 +47,10 @@ namespace ivgl
         Ph.second = glGetUniformLocation(shd->ProgId, "Ph");
         Trans.second = glGetUniformLocation(shd->ProgId, "Trans");
         CamLocUni = glGetUniformLocation(shd->ProgId, "CamLoc");
+        CamDirUni = glGetUniformLocation(shd->ProgId, "CamDir");
+        CamRightUni  = glGetUniformLocation(shd->ProgId, "CamRight");
+        CamUpUni = glGetUniformLocation(shd->ProgId, "CamUp");
+
         TimeUniLoc = glGetUniformLocation(shd->ProgId, "Time");
         MatrWInvLoc = glGetUniformLocation(shd->ProgId, "MatrVInv");
         MatrWPLoc = glGetUniformLocation(shd->ProgId, "MatrWP");
@@ -58,6 +62,7 @@ namespace ivgl
           CHAR tname[] = "IsTexture0";
 
           tname[9] = '0' + i;
+          IsTextures[i] = -1;
           if (Tex[i] != nullptr)
             IsTextures[i] = glGetUniformLocation(shd->ProgId, tname);
         }
@@ -83,7 +88,10 @@ namespace ivgl
       shd->UniSetPair("Ks", Ks);
       shd->UniSetPair("Ph", Ph);
       shd->UniSetPair("Trans", Trans);
-      //shd->UniSetLoc("CamLoc", myanim->Camera.Loc, CamLocUni);
+      shd->UniSetLoc("CamLoc", myanim->Camera.Loc, CamLocUni);
+      shd->UniSetLoc("CamDir", myanim->Camera.Dir, CamDirUni);
+      shd->UniSetLoc("CamRight", myanim->Camera.Loc, CamRightUni);
+      shd->UniSetLoc("CamUp", myanim->Camera.Loc, CamUpUni);
 
       //shd->UniSet("CamRight", myanim->Camera.Right);
       //shd->UniSet("CamDir", myanim->Camera.Dir);

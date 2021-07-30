@@ -299,7 +299,7 @@ namespace ivgl
     matr winv = w;
     // MatrTranspose(MatrInverse(w)),
     matr wvp =  w * Camera.VP; /*camera:: MatrVP;  */
-    shader *shd = shader_manager::ShaderCreate("DEFAULT");
+    shader *shd = Pr->Mtl->shd;
     ivgl::anim *myw = ivgl::anim::GetPtr();
 
     //INT loc, prg;

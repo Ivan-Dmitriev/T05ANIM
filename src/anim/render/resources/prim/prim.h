@@ -110,10 +110,10 @@ namespace ivgl
     UINT VA;           /* Primitive vertex array */
     UINT VBuf;         /* Vertex buffer */
     UINT IBuf;         /* Index buffer */
-    INT NumOfElements; /* Number of elements for OpenGL */
     matr Transform;    /* Primitive transformation matrix */
 
   public:
+    INT NumOfElements; /* Number of elements for OpenGL */
     vec3
       Min,             /* Minimal primitive position */
       Max;             /* Maximal primitive position */

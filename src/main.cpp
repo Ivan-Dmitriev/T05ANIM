@@ -52,8 +52,8 @@ INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, CHAR *CmdLine,
   //ivgl::units::control_unit MyUnit2;
   //myw.MyScene << MyUnit;
   //myw << "ControlUnit" <<  "CubeUnit";
-  //myw << "ControlUnit" <<  "TestUnit";
-  myw << "ControlUnit" <<  "Mobius";
+  myw << "ControlUnit" <<  "TestUnit" << "SkyUnit";
+  //myw << "ControlUnit" <<  "Mobius";
 
   return myw.Run();
 } /* End of 'WinMain' function */

@@ -43,11 +43,15 @@ namespace ivgl
       Ks;                         /* Specular coefficient */
     std::pair <FLT, INT> Ph;      /* Phong power coefficient */
     std::pair <FLT, INT> Trans;   /* Transparency factor */
-    INT CamLocUni;
-    INT TimeUniLoc;
-    INT MatrWVPLoc;
-    INT MatrWPLoc;
-    INT MatrWInvLoc;
+    INT CamLocUni = -1;
+    INT CamRightUni = -1;
+    INT CamUpUni = -1;
+    INT CamDirUni = -1;
+
+    INT TimeUniLoc = -1;
+    INT MatrWVPLoc = -1;;
+    INT MatrWPLoc = -1;
+    INT MatrWInvLoc = -1;;
 
     texture *Tex[8];              /* Texture references from texture table (or -1) */
     INT IsTextures[8];

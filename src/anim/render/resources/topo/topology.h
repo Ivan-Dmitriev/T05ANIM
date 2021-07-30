@@ -298,6 +298,15 @@ namespace ivgl
         } /* End of 'cube' function */
 
       }; /* End of 'cube' class */
+    template<typename vertex_type>
+      class points : public base<vertex_type>
+      {
+      public:
+        points( const std::vector<vertex_type> &NewV,
+                const std::vector<INT> &NewI = {} ) : base<vertex_type>(prim_type::POINTS, NewV, NewI)
+        {
+        }
+      }; /* End of 'points' class */
 
     template<typename vertex_type>
       class grid : public base<vertex_type>

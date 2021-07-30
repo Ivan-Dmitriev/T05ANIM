@@ -55,7 +55,7 @@ namespace ivgl
         Pr = ivgl::anim::GetPtr()->primitive_manager::PrimCreate(*B);
         Pr2 = ivgl::anim::GetPtr()->primitive_manager::PrimCreate(*B2);
 
-        Pr3.PrimLoad(&Pr3, "bin/models/cow.object");
+        //Pr3.PrimLoad(&Pr3, "bin/models/cow.object");
 
       } /* End of 'constructor' function */
       
@@ -107,15 +107,15 @@ namespace ivgl
         //  }
         //  i++;
         //}
-        static INT NumofPr = 15;
+        static INT NumofPr = 20;
         static matr Rad = matr().Translate(vec3(0, 10, 0));
         for (INT i = 0; i < NumofPr; i++)
         {
-          Ani->PrimDraw(Pr, matr().RotateX(180.0f / NumofPr * i + Ani->Time * 25) * Rad *
-                         matr().RotateZ(360.0f / NumofPr * i + Ani->Time * 58));
-          Ani->PrimDraw(Pr2, matr().Translate(vec3(0, sqrt(fabs(sin(math::D2R(Ani->Time * NumofPr * 25)))), 0))); 
+          Ani->PrimDraw(Pr, matr().RotateX(90.0f) * matr().RotateX(180.0f / NumofPr * i + Ani->Time * 20) * Rad *
+                         matr().RotateZ(360.0f / NumofPr * i + Ani->Time * 40));
+          Ani->PrimDraw(Pr2, matr().Translate(vec3(0, sqrt(fabs(sin(math::D2R(Ani->Time * NumofPr * 20)))), 0))); 
         }
-        Ani->PrimDraw(&Pr3, matr().Identity()); 
+        //Ani->PrimDraw(&Pr3, matr().Identity()); 
 
         //TranslateX = (1 + v / 2 * cos(math::D2R(u / 2) )) * cos(math::D2R(u));
         //TranslateY = (1 + v / 2 * cos(math::D2R(u / 2) )) * sin(math::D2R(u));
