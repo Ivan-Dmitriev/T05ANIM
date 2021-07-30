@@ -80,7 +80,7 @@ namespace ivgl
      } *tex, *AllTex;
     struct tagTEXN
     {
-      INT Num[8];
+      INT Num[20];
     } *Textures;
 
     //memset(Prs, 0, sizeof(primitives));
@@ -183,7 +183,7 @@ namespace ivgl
       mtl.Trans.first = mtls[m].Trans;
       //mtl.shd = mtl.GetShd("DEFAULT");
 
-      for (i = 0; i < 8; i++)
+      for (i = 0; i < 20; i++)
         Textures[m].Num[i] = (mtls[m].Tex[i] == -1 ? -1 : mtls[m].Tex[i]);
 
       myanim->material_manager::MtlCreate(mtl);

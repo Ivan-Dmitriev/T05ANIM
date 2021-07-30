@@ -91,7 +91,7 @@ namespace math
 
       /* Default constructor */
       camera( VOID ) :
-        Loc(10, 15, 10), Dir(0, 0, -1), Up(0, 1, 0), Right(1, 0, 0), At(0, 0, 0),
+        Loc(10, 5, 10), Dir(0, 0, -1), Up(0, 1, 0), Right(1, 0, 0), At(0, 0, 0),
         ProjDist(0.1), FarClip(500), Size(0.1),
         FrameW(30), FrameH(30)
       {

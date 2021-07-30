@@ -444,7 +444,7 @@ namespace math
        * RETURNS:
        *   (matr) result matrix.
        */
-      matr RotateZ( Type1 AngleInDegree )
+      static matr RotateZ( Type1 AngleInDegree )
       {
         Type1 a = D2R(AngleInDegree), s = sin(a), c = cos(a);
         return matr(c, s, 0, 0,

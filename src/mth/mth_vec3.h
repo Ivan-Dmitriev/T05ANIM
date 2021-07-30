@@ -114,6 +114,19 @@ namespace math
          return vec3(X - V.X, Y - V.Y, Z - V.Z);
       } /* End of 'operator-' function */
 
+      /* Sum vec3 and number function.
+       * ARGUMENTS: 
+       *   - Summing number: 
+       *       DBL N;
+       * RETURNS: (vec3) result vector.
+       */
+      vec3 operator+( DBL N )
+      {
+         if (N == 0)
+           return vec3(0);
+         return vec3(X + N, Y + N, Z + N);
+      } /* End of 'operator/' function */
+
       /* Multiply vec3 by number function.
        * ARGUMENTS: None.
        * RETURNS: (vec3) result vector.
@@ -346,7 +359,30 @@ namespace math
                     V1[2] > V2[2] ? V1[2] : V2[2]);
       } /* End of 'Max' function */
 
+     /* Zero y-coord function.
+      * ARGUMENTS:
+      *   - Input values:
+      *       Type A, B;
+      * RETURNS: (Type) result value.
+      */
+      vec3 & GetVecInPlaneXZ( VOID )
+      {
+        Y = 5;
+        return *this;
+      }
+   /* Zero y-coord function.
+    * ARGUMENTS:
+    *   - Input values:
+    *       Type A, B;
+    * RETURNS: (Type) result value.
+    */
+    vec3 GetVecInPlaneXZ( vec3 V )
+    {
+      return vec3(V[0], 5, V[2]);
+    }
+
   }; /* End of 'vec3' class */
+
 } /* end of 'math' namespace */
 
 #endif /* __mth_vec3_h_ */

@@ -164,7 +164,7 @@ namespace math
       Type tmp = *A;
        *A = *B;
        *B = tmp;
-    } /* End of 'Sqr' function */
+    } /* End of 'Swap' function */
 
 } /* end of 'math' namespace */
 
