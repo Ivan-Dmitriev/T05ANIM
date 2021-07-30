@@ -1,8 +1,7 @@
 /**/
 #version 420
  
-layout(location = 1) out vec4 OutNormalIsShade;
-layout(location = 5) out vec4 OutColor;
+layout(location = 0) out vec4 OutColor;
 
 layout(binding = 0) uniform sampler2D Texture0;
 uniform bool IsTexture0;
@@ -28,5 +27,5 @@ void  main( void )
     vec4 tc = texture(Texture0, -c.yx);
     OutColor = vec4(tc.bgr, 1);    
 
-  OutNormalIsShade = vec4(1, 1, 1, 0);
+  //OutNormalIsShade = vec4(1, 1, 1, 0);
 }

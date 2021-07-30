@@ -189,6 +189,7 @@ namespace ivgl
         return find;
 
       shd.LoadFromFile(FileName);
+
       return resource_manager::Add(shd);
       //return resource_manager::Add(shader(FileName));
     } /* End of 'Add' function. */

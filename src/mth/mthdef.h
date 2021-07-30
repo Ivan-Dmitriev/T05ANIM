@@ -152,6 +152,20 @@ namespace math
     {
       return A > B ? A : B;
     } /* End of 'Max' function */
+  template<class Type>
+   /* Swap two values function.
+    * ARGUMENTS:
+    *   - Input values:
+    *       Type A, B;
+    * RETURNS: (Type) result value.
+    */
+    VOID Swap( Type *A, Type *B )
+    {
+      Type tmp = *A;
+       *A = *B;
+       *B = tmp;
+    } /* End of 'Sqr' function */
+
 } /* end of 'math' namespace */
 
 #endif /* __mthdef_h_ */

@@ -321,6 +321,31 @@ namespace math
         C << "<" << V.X << "," << V.Y << "," << V.Z << ">";
         return C;
       }
+     /* Get minimum value function.
+      * ARGUMENTS:
+      *   - Input values:
+      *       Type A, B;
+      * RETURNS: (Type) result value.
+      */
+      static vec3 Min( vec3 V1, vec3 V2 )
+      {
+        return vec3(V1[0] > V2[0] ? V2[0] : V1[0],
+                    V1[1] > V2[1] ? V2[1] : V1[1],
+                    V1[2] > V2[2] ? V2[2] : V1[2]);
+      } /* End of 'Min' function */
+     /* Get maximum value function.
+      * ARGUMENTS:
+      *   - Input values:
+      *       Type A, B;
+      * RETURNS: (Type) result value.
+      */
+      static vec3 Max( vec3 V1, vec3 V2 )
+      {
+        return vec3(V1[0] > V2[0] ? V1[0] : V2[0],
+                    V1[1] > V2[1] ? V1[1] : V2[1],
+                    V1[2] > V2[2] ? V1[2] : V2[2]);
+      } /* End of 'Max' function */
+
   }; /* End of 'vec3' class */
 } /* end of 'math' namespace */
 

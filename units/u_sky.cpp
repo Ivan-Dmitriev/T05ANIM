@@ -35,7 +35,7 @@ namespace ivgl
         material mtl;
 
         mtl.Name = "sky sphere material";
-        mtl.Tex[0] = Ani->texture_manager::TexCreate("SkySphere.g32");
+        mtl.Tex[0] = Ani->texture_manager::TexCreate("clouds.g32");
         mtl.shd = Ani->shader_manager::ShaderCreate("SKY");
         mtl.Ph = std::pair(1.0, -1);
   

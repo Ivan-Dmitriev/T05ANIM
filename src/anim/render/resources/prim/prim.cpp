@@ -379,7 +379,30 @@ namespace ivgl
           glBindVertexArray(VA);
           glBindBuffer(GL_ARRAY_BUFFER, VBuf);
           glBufferData(GL_ARRAY_BUFFER, sizeof(vertex) * T.V.size(), T.V.data(), GL_STATIC_DRAW);
- 
+          //vec3 MinB(0), MaxB(0), IsFirst = TRUE;
+          BOOL IsFirst = TRUE;
+          for (auto &i : T.V)
+          {
+            if (IsFirst)
+            {
+              Min = i.P;
+              IsFirst = FALSE;
+            }
+            else
+              Min = math::vec3<FLT>::Min(Min, i.P);
+          }
+          IsFirst = TRUE;
+          for (auto & i : T.V)
+          {
+            if (IsFirst)
+            {
+              Max = i.P;
+              IsFirst = FALSE;
+            }
+            else
+              Max = math::vec3<FLT>::Max(Max, i.P);
+          }
+
           INT attr = 0, offset = 0;
           for (auto c = dsc.begin(); c != dsc.end(); c++)
             if (*c == 'f' || *c == 'i')

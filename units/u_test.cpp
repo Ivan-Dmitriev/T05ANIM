@@ -41,7 +41,7 @@ namespace ivgl
       /* Destructor of test unit */
       ~test_unit( VOID )
       {
-        //Pr->Free();
+        Prs.Free();
       } /* End of 'destructor' function */
 
      /* Unit response function.

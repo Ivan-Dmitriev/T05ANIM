@@ -21,6 +21,7 @@
 
 #include "mth_vec3.h"
 #include "mth_matr.h"
+#include "mth_ray.h"
 
 /* Math library namespace */
 namespace math
@@ -86,6 +87,7 @@ namespace math
         View,           // view matrix
         Proj,           // projection matrix
         VP;             // View and Proj madtrix production
+      math::ray<FLT> Ray;
 
       /* Default constructor */
       camera( VOID ) :
@@ -210,6 +212,33 @@ namespace math
         SetLocAtUp(Loc, At, Up);
         return *this;
       } /* End of 'Move' function */
+      /* Obtain ray from camera and projection plane function.
+       * ARGUMENTS:
+       *   - frame size in pixels:
+       *       INT FrameW, FrameH;
+       *   - frame pixel coordinates:
+       *       Type FrameX, FrameY;
+       * RETURNS: NONE.
+       */
+      VOID SetRay( FLT Sx, FLT Sy )
+      {
+        DBL Wp, Hp;
+
+        Wp = Hp = Size;
+
+       if (FrameW > FrameH)
+          Wp *= (DBL)FrameW / FrameH;
+        else
+          Hp *= (DBL)FrameH / FrameW;
+
+        vec3<type> A = Dir * ProjDist;
+        vec3<type> B = Right * (Sx - FrameW / 2.0) * Wp / FrameW;
+        vec3<type> C = Up * (-Sy + FrameH / 2.0) * Hp / FrameH;
+        vec3<type> X = (A + B) + C;
+        Ray.Org = Loc + X;
+        Ray.Dir = X.Normalizing();
+      } /* End of 'SetRay' function */
+
     }; /* End of 'camera' class */
 } /* end of 'mth' namespace */
 

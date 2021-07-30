@@ -23,6 +23,7 @@
 #include "../resources.h"
 #include "../mtl/material.h"
 #include "../textures/textures.h"
+#include "../topo/sphere.h"
 
 /* Project namespace */
 namespace ivgl
@@ -177,6 +178,13 @@ namespace ivgl
       *   (prim *) pointer to created primitive.
       */
     prim * PrimLoad( prim *Pr, const CHAR *FileName );
+
+     /* Find borders of primitive function.
+      * ARGUMENTS: NONE.
+      * RETURNS: NONE.
+      */
+    VOID FindBB( VOID );
+
   };
   /* Primitive manager */
   class primitive_manager : public resource_manager<prim, INT> 
@@ -206,10 +214,41 @@ namespace ivgl
     template<class vertex_type>
       prim * PrimCreate( const CHAR *FileName )
       {
-        prim Pr;
-        Pr;
         return resource_manager::Add(prim().PrimLoad(FileName));
       } /* End of 'PrimCreate' function */
+    /* Create primitive box function.
+     * ARGUMENTS:
+     *   - topology base reference:
+     *       const topology::base &Tpl;
+     * RETURNS:
+     *   (prim *) created primitive interface.
+     */
+    prim * PrimCreateBox( vec3 Min, vec3 Max )
+    {
+      topology::cube<vertex::std> T(Max, Min);
+      topology::base<vertex::std> *B = dynamic_cast<topology::base<vertex::std> *>(&T);
+
+      return PrimCreate(*B);
+    } /* End of 'PrimCreateBox' function */
+    /* Create primitive box function.
+     * ARGUMENTS:
+     *   - sphere position:
+     *       vec3 Pos;
+     *   - sphere radius:
+     *       FLT R;
+     *   - sphere sections:
+     *       FLT W, H; 
+     * RETURNS:
+     *   (prim *) created primitive interface.
+     */
+
+    prim * PrimCreateSphere( vec3 Pos, FLT R, FLT W, FLT H )
+    {
+      topology::sphere<vertex::std> T(Pos, R, W, H);
+      topology::base<vertex::std> *B = dynamic_cast<topology::base<vertex::std> *>(&T);
+
+      return PrimCreate(*B);
+    } /* End of 'PrimCreateBox' function */
 
       /* Free render primitive function.
        * ARGUMENTS:

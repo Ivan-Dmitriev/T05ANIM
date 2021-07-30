@@ -72,9 +72,9 @@ void main( void )
   vec3 L = normalize(vec3(10, 15, 1));  // light source
   //OutColor = vec4(Shade(DrawPos, N, 0.3 + L * vec3(1, 1.30, 1) * abs(cos(0.5 * Time)), vec3(1)), 1);
   //OutColor1 = vec4(N, 1);
-  OutColor = vec4(texture(Texture0, DrawTexCoord).rgb, 1);
+  //OutColor = vec4(texture(Texture0, DrawTexCoord).rgb, 1);
   //OutColor = vec4(1, 1, 1, 1);
-  //OutColor = vec4(Shade(DrawPos, N, L, vec3(1)), 1);
+  OutColor = vec4(Shade(DrawPos, N, L, vec3(1)), 1);
   //OutColor = mix(DrawColor, OutColor, 0.5);//vec4(Shade(DrawPos, N, 0.3 + L * vec3(1, 1.30, 1), vec3(1)), 1);
   //OutColor = vec4(1, 1, 1, 1);
   //OutColor = DrawColor;

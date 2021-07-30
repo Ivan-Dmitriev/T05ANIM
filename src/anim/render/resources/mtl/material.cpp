@@ -90,8 +90,8 @@ namespace ivgl
       shd->UniSetPair("Trans", Trans);
       shd->UniSetLoc("CamLoc", myanim->Camera.Loc, CamLocUni);
       shd->UniSetLoc("CamDir", myanim->Camera.Dir, CamDirUni);
-      shd->UniSetLoc("CamRight", myanim->Camera.Loc, CamRightUni);
-      shd->UniSetLoc("CamUp", myanim->Camera.Loc, CamUpUni);
+      shd->UniSetLoc("CamRight", myanim->Camera.Right, CamRightUni);
+      shd->UniSetLoc("CamUp", myanim->Camera.Up, CamUpUni);
 
       //shd->UniSet("CamRight", myanim->Camera.Right);
       //shd->UniSet("CamDir", myanim->Camera.Dir);
@@ -139,7 +139,7 @@ namespace ivgl
     texture *txt2 = myanim->texture_manager::TexCreate("tree.G32");
 
     return myanim->material_manager::MtlCreate(NewKa, NewKd, NewKs, NewPh, 
-                                             NewTrans, NewName, shd, {txt1, txt2});
+                                               NewTrans, NewName, shd, {txt1, txt2});
     //memset(Mtl.Tex, -1, sizeof(Mtl.Tex));
   } /* End of 'material::GetDef' function */
 

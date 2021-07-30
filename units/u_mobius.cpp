@@ -36,15 +36,15 @@ namespace ivgl
       /* Constructor of test unit */
       mobius_unit( anim *Ani )
       {
-        ivgl::anim *myw = ivgl::anim::GetPtr();
+        //ivgl::anim *myw = ivgl::anim::GetPtr();
 
-        topology::cube<vertex::std> T(vec3(0.5, 0.5, 2), vec3(-0.5, -0.5, -2));
-        topology::sphere<vertex::std> T2(vec3(0, -10 + 1 + 0.5, 0), 0.5, 20, 20);
+        //topology::cube<vertex::std> T(vec3(0.5, 0.5, 2), vec3(-0.5, -0.5, -2));
+        //topology::sphere<vertex::std> T2(vec3(0, -10 + 1 + 0.5, 0), 0.5, 20, 20);
 
-        //T.EvalNormals();
+        ////T.EvalNormals();
 
-        topology::base<vertex::std> *B = dynamic_cast<topology::base<vertex::std> *>(&T);
-        topology::base<vertex::std> *B2 = dynamic_cast<topology::base<vertex::std> *>(&T2);
+        //topology::base<vertex::std> *B = dynamic_cast<topology::base<vertex::std> *>(&T);
+        //topology::base<vertex::std> *B2 = dynamic_cast<topology::base<vertex::std> *>(&T2);
 
         /* create primitive */
         //Pr->Create(*B2);
@@ -52,8 +52,11 @@ namespace ivgl
         //Pr[i] = ivgl::anim::GetPtr()->primitive_manager::PrimCreate(*B);
         //Pr[i]->Mtl = myw->material_manager::GetDef();
         //Pr[i]->Mtl->Tex[0] = myw->texture_manager::TexCreate("GIR.g32");
-        Pr = ivgl::anim::GetPtr()->primitive_manager::PrimCreate(*B);
-        Pr2 = ivgl::anim::GetPtr()->primitive_manager::PrimCreate(*B2);
+        Pr = ivgl::anim::GetPtr()->primitive_manager::PrimCreateBox(vec3(0.5, 0.5, 2), vec3(-0.5, -0.5, -2));
+        Pr2 = ivgl::anim::GetPtr()->primitive_manager::PrimCreateSphere(vec3(0, -9, 0), 0.5, 20, 20);
+        Pr->Mtl->Tex[0] = nullptr;
+        //Pr = ivgl::anim::GetPtr()->primitive_manager::PrimCreate(*B);
+        //Pr2 = ivgl::anim::GetPtr()->primitive_manager::PrimCreate(*B2);
 
         //Pr3.PrimLoad(&Pr3, "bin/models/cow.object");
 

@@ -58,11 +58,10 @@ namespace ivgl
     } shdr[] =
     {
       {"VERT", GL_VERTEX_SHADER, 0},
-      /*
+      {"FRAG", GL_FRAGMENT_SHADER, 0},
       {"CTRL", GL_TESS_CONTROL_SHADER, 0},
       {"EVAL", GL_TESS_EVALUATION_SHADER, 0},
-      {"GEOM", GL_GEOMETRY_SHADER, 0},*/
-      {"FRAG", GL_FRAGMENT_SHADER, 0},
+      {"GEOM", GL_GEOMETRY_SHADER, 0},
     };
     //INT NoofS = sizeof(shd) / sizeof(shd[0]), i, res, prg = 0;
     INT res;

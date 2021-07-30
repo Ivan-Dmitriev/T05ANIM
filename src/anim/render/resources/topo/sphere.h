@@ -16,6 +16,9 @@
  * Computer Graphics Support Group of 30 Phys-Math Lyceum
  */
 
+#ifndef __sphere_h_
+#define __sphere_h_
+
 #include "topology.h"
 
 /* Project namespace */
@@ -69,5 +72,7 @@ namespace ivgl
   } /* end of 'units' namespace */
 } /* end of 'ivgl' namespace */
 
-/* END OF 'sphere.cpp' FILE */
+#endif /* __sphere_h_ */
+
+/* END OF 'sphere.h' FILE */
 
