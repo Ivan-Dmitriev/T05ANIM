@@ -62,7 +62,7 @@ namespace ivgl
             Ani->Camera.Move((Ani->Camera.Dir * ((Ani->Keys['W'] - Ani->Keys['S'])) + 
                               Ani->Camera.Right * ((Ani->Keys['D'] - Ani->Keys['A']))) * 30 * Ani->GlobalDeltaTime);
 
-        if (Ani->Keys[VK_CONTROL] || Ani->Keys[VK_SPACE])
+        if (Ani->Keys[VK_CONTROL] || Ani->Keys[VK_SPACE]) 
           Ani->Camera.Move(vec3(0, 20 * Ani->GlobalDeltaTime, 0) * (Ani->Keys[VK_SPACE] - Ani->Keys[VK_CONTROL]));
 
         FLT Dist, Wp, Hp, sx, sy, sinT, cosT, cosP, sinP, plen, Azimuth, Elevator,

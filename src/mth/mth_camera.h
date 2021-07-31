@@ -159,20 +159,7 @@ namespace math
 
         Dir = (At - Loc).Normalizing();
         Right = (Dir % Up).Normalizing();
-        /*
-        Right = vec3<type>(View.M[0][0],
-                                 View.M[1][0],
-                                 View.M[2][0]);
 
-         Up = vec3<type>(View.M[0][1],
-                              View.M[1][1],
-                              View.M[2][1]);
-
-         Dir = vec3<type>(-View.M[0][2],
-                               -View.M[1][2],
-                               -View.M[2][2]);
-         */
-        //Up = 
         UpdateView();
 
         VP = View * Proj;

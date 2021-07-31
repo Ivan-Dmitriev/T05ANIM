@@ -57,7 +57,7 @@ INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, CHAR *CmdLine,
   //myw << "ControlUnit" << "FinalUnit";
   //myw << "new";
   //myw << "ControlUnit" << "LandUnit";
-  myw << "FinalUnit";
+  myw << "FinalUnit" << "TargetUnit";
 
   return myw.Run();
 } /* End of 'WinMain' function */

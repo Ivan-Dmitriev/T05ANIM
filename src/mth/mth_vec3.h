@@ -122,9 +122,17 @@ namespace math
        */
       vec3 operator+( DBL N )
       {
-         if (N == 0)
-           return vec3(0);
          return vec3(X + N, Y + N, Z + N);
+      } /* End of 'operator/' function */
+      /* Sum vec3 and number function.
+       * ARGUMENTS: 
+       *   - Summing number: 
+       *       DBL N;
+       * RETURNS: (vec3) result vector.
+       */
+      vec3 operator-( DBL N )
+      {
+         return vec3(X - N, Y - N, Z - N);
       } /* End of 'operator/' function */
 
       /* Multiply vec3 by number function.
