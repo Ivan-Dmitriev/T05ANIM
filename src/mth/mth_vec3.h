@@ -120,7 +120,7 @@ namespace math
        *       DBL N;
        * RETURNS: (vec3) result vector.
        */
-      vec3 operator+( DBL N )
+      vec3 operator+( Type N )
       {
          return vec3(X + N, Y + N, Z + N);
       } /* End of 'operator/' function */
@@ -130,7 +130,7 @@ namespace math
        *       DBL N;
        * RETURNS: (vec3) result vector.
        */
-      vec3 operator-( DBL N )
+      vec3 operator-( Type N )
       {
          return vec3(X - N, Y - N, Z - N);
       } /* End of 'operator/' function */
@@ -139,7 +139,7 @@ namespace math
        * ARGUMENTS: None.
        * RETURNS: (vec3) result vector.
        */
-      vec3 operator*( DBL N )
+      vec3 operator*( Type N )
       {
          return vec3(X * N, Y * N, Z * N);
       } /* End of 'operator*' function */
@@ -150,7 +150,7 @@ namespace math
        *       float N;
        * RETURNS: (vec3) result vector.
        */
-      vec3 operator/( DBL N )
+      vec3 operator/( Type N )
       {
          if (N == 0)
            return vec3(0);
@@ -234,9 +234,11 @@ namespace math
       {
         if (!*this == 0 || !*this == 1)
           return;
-        X /= !*this;
-        Y /= !*this;
-        Z /= !*this;
+        Type length = !*this;
+        X /= length;
+        Y /= length;
+        Z /= length;
+        //*this /= !(*this);
       } /* End of 'Normalize' function */
 
       /* Find squared length of this vector function.

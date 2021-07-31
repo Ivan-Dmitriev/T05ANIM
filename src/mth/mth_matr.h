@@ -126,19 +126,22 @@ namespace math
         M[0][1] = a01;
         M[0][2] = a02;
         M[0][3] = a03;
+
         M[1][0] = a10;
         M[1][1] = a11;
         M[1][2] = a12;
         M[1][3] = a13;
+
         M[2][0] = a20;
         M[2][1] = a21;
         M[2][2] = a22;
         M[2][3] = a23;
+
         M[3][0] = a30;
         M[3][1] = a31;
         M[3][2] = a32;
         M[3][3] = a33;
-        InvM[0][0] = 0;
+        //InvM[0][0] = 0;
       } /* End of 'constructor' function */
 
       /* Constructor of matr class function.

@@ -119,9 +119,10 @@ namespace ivgl
       Min,             /* Minimal primitive position */
       Max;             /* Maximal primitive position */
     material *Mtl;     /* Material pointer */
- 
+    INT InstCount;     /* Counter for instancing, 0 - not use */
+
     /* Class constructor */
-    prim( VOID ) : VA(0), VBuf(0), IBuf(0), NumOfElements(0), Type(prim_type::TRIMESH)
+    prim( VOID ) : InstCount(0), VA(0), VBuf(0), IBuf(0), NumOfElements(0), Type(prim_type::TRIMESH)
     {
       Min = vec3(0);
       Max = vec3(0);

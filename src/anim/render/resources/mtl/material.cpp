@@ -136,10 +136,10 @@ namespace ivgl
     //shd = ivgl::anim::GetPtr()->shader_manager::ShaderCreate("DEFAULT");
     std::string NewName = "silver";
     texture *txt1 = myanim->texture_manager::TexCreate("GIR.G32");
-    texture *txt2 = myanim->texture_manager::TexCreate("tree.G32");
+    //texture *txt2 = myanim->texture_manager::TexCreate("tree.G32");
 
-    return myanim->material_manager::MtlCreate(NewKa, NewKd, NewKs, NewPh, 
-                                               NewTrans, NewName, shd, {txt1, txt2});
+    return myanim->material_manager::MtlCreate(NewKa, NewKd, NewKs, NewPh,
+                                               NewTrans, NewName, shd, {txt1});
     //memset(Mtl.Tex, -1, sizeof(Mtl.Tex));
   } /* End of 'material::GetDef' function */
 

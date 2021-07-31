@@ -33,12 +33,25 @@ namespace ivgl
       /* Constructor of test unit */
       land_unit( anim *Ani )
       {
-        Land.Load(&Land, "bin/models/landscape.g3dm");
+        /*
+        AllocConsole();
+        freopen("CONOUT$", "w", stdout);
+        system("chcp 1251");
+        */
+        Land.Load(&Land, "bin/models/graccy_mountains.g3dm");
+        for (INT i = 0; i < Land.NumOfPrims; i++)
+        {
+          Land.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
+          Land.Prims[i].Mtl->UpdateLoc();
+        }
+
       } /* End of 'constructor' function */
       /* Destructor of test unit */
       ~land_unit( VOID )
       {
         Land.Free();
+        //FreeConsole();
+
       } /* End of 'destructor' function */
       
      /* Unit response function.
@@ -49,6 +62,22 @@ namespace ivgl
       */
       VOID Response( anim *Ani ) override
       {
+        static DBL ReloadTime = 0;
+
+        ReloadTime += Ani->GlobalDeltaTime;
+
+        /* Update shafer */
+        //if (ReloadTime > 3)
+        //{
+        //  printf("%f %f %f\n", Ani->Camera.Loc[0], Ani->Camera.Loc[1], Ani->Camera.Loc[2]);
+        //  ReloadTime = 0;
+        //}
+
+        CHAR Buf[100];
+
+        sprintf(Buf, "%f\n", Ani->FPS);
+
+        OutputDebugStringA(Buf);
       } /* End of 'Response' function */
 
      /* Unit render function.
@@ -59,7 +88,7 @@ namespace ivgl
       */
       VOID Render( anim *Ani ) override
       {
-        Ani->PrimitivesDraw(&Land, matr::Identity());
+        Ani->PrimitivesDraw(&Land, matr::Scale(vec3(100.0f)));
       } /* End of 'Render' function */
     }; /* End of 'land_unit' class */
   } /* end of 'units' namespace */

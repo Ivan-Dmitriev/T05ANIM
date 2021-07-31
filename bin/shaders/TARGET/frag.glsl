@@ -39,7 +39,7 @@ vec3 Shade( vec3 P, vec3 N, vec3 L, vec3 LColor )
   //N = faceforward(N, V, N);
   
   // Ambient
-  color += Ka;
+  //color += Ka;
 
   // Duffuse
   float nl = dot(N, L);
@@ -47,7 +47,7 @@ vec3 Shade( vec3 P, vec3 N, vec3 L, vec3 LColor )
   vec3 diff = LColor * Kd * nl;
 
   //if (IsTexture0)
-  diff *= texture(Texture0, DrawTexCoord).rgb;
+  //diff *= texture(Texture0, DrawTexCoord).rgb;
    /*
    if (IsTexture1)
      diff *= texture(Texture1, DrawTexCoord).rgb;

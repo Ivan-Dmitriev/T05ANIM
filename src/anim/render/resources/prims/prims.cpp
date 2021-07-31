@@ -202,6 +202,8 @@ namespace ivgl
     for (INT p = 0; p < NumOfPrims; p++)
     {
       Prs->Prims[p].Mtl = myanim->material_manager::Find(mtls[MtlNums[p]].Name);
+      if (Prs->Prims[p].Mtl == nullptr)
+        Prs->Prims[p].Mtl = myanim->material_manager::GetDef();
       Prs->Prims[p].Mtl->shd = myanim->shader_manager::ShaderCreate("DEFAULT");
       Prs->Prims[p].Mtl->UpdateLoc();
 

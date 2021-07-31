@@ -323,22 +323,32 @@ namespace ivgl
 
     /* making an array of vertices active */
     glBindVertexArray(Pr->VA);
-    if (gl_prim_type == GL_PATCHES)
+    if (Pr->InstCount < 2)
     {
-      glPatchParameteri(GL_PATCH_VERTICES, 16);
-      glDrawArrays(gl_prim_type, 0, Pr->NumOfElements);
+      if (gl_prim_type == GL_PATCHES)
+      {
+        glPatchParameteri(GL_PATCH_VERTICES, 16);
+        glDrawArrays(gl_prim_type, 0, Pr->NumOfElements);
+      }
+      else if (Pr->IBuf == 0)
+        glDrawArrays(gl_prim_type, 0, Pr->NumOfElements);
+      else
+      {
+        /* making an array of indexes active */
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Pr->IBuf);
+        /* drawing */
+        glDrawElements(gl_prim_type, Pr->NumOfElements, GL_UNSIGNED_INT, NULL);
+        /* disable index array */
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+      }
     }
-    else if (Pr->IBuf == 0)
-      glDrawArrays(gl_prim_type, 0, Pr->NumOfElements);
     else
     {
-      /* making an array of indexes active */
-      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Pr->IBuf);
-      /* drawing */
-      glDrawElements(gl_prim_type, Pr->NumOfElements, GL_UNSIGNED_INT, NULL);
-      /* disable index array */
-      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+      glBindVertexArray(Pr->VA);
+      glDrawArraysInstanced(gl_prim_type, 0, Pr->NumOfElements, Pr->InstCount);
+      glBindVertexArray(0);
     }
+
     /* disable vertex array */
     glBindVertexArray(0);
   } /* End of 'PrimDraw' function */

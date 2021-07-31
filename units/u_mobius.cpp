@@ -41,8 +41,6 @@ namespace ivgl
         //topology::cube<vertex::std> T(vec3(0.5, 0.5, 2), vec3(-0.5, -0.5, -2));
         //topology::sphere<vertex::std> T2(vec3(0, -10 + 1 + 0.5, 0), 0.5, 20, 20);
 
-        ////T.EvalNormals();
-
         //topology::base<vertex::std> *B = dynamic_cast<topology::base<vertex::std> *>(&T);
         //topology::base<vertex::std> *B2 = dynamic_cast<topology::base<vertex::std> *>(&T2);
 

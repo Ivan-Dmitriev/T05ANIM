@@ -117,11 +117,11 @@ namespace ivgl
 
         Azimuth += Ani->GlobalDeltaTime * 
           (-70.0 * Ani->Keys[VK_LBUTTON] * Ani->MouseDX +
-            47.0 * (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT]));
+            30.0 * (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT]));
 
         Elevator += Ani->GlobalDeltaTime * 
           (-70.0 * Ani->Keys[VK_LBUTTON] * Ani->MouseDY +
-            47.0 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN]));
+            30.0 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN]));
 
         Dist += Ani->GlobalDeltaTime * 
           (30.0 * Ani->MouseDZ +

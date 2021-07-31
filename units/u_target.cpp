@@ -18,7 +18,8 @@
 
 #include "../src/anim/anim.h"
 
-#define NumOfTargets 5
+#define NumOfTargets 20
+#define NumOfBullets 250
 
 /* Project namespace */
 namespace ivgl
@@ -29,14 +30,26 @@ namespace ivgl
     /* First unit test */
     class common_target : public unit  
     {
-    public:
+    private:
       FLT MouseX;
       FLT MouseY;
+      FLT ScreenX, ScreenY;
+      BOOL IsDebug;
+      BOOL IsShot;
+      
+      /* Bullet struct array */
+      struct tagBULLET
+      {
+        primitives Pr; /* Bullet as primitive */
+        vec3 Dir;     /* Direction */
+        vec3 Pos;     /* Bullet position */
+      } Bullets[256];
 
       /* Target coordinates class */
       class target
       {
       public:
+        vec3 StartPosition;
         FLT RandomCoef;
         vec3 Position;
         vec3 Norm;
@@ -47,6 +60,7 @@ namespace ivgl
 
         target( VOID ) : Position(vec3()), Trans(matr()), RandomCoef(rand() / (FLT)RAND_MAX)
         {
+          //StartPosition = vec3(490.9, -50.5, -495.867);
         }
 
        /* Evaluate normals function.
@@ -63,8 +77,10 @@ namespace ivgl
          Trans = Trans * matr::Translate(Pos);
 
          Norm = vec3(sin(math::D2R(AngleInDegree)), 0, cos(math::D2R(AngleInDegree)));
-         Position = Pos;
-         Sphere = ivgl::anim::GetPtr()->primitive_manager::PrimCreateSphere(Pos, 4.5, 20, 20);
+         //Pos += StartPosition; 
+         Position = Pos /* + StartPosition */;
+         Pos[1] += 7;
+         Sphere = ivgl::anim::GetPtr()->primitive_manager::PrimCreateSphere(Pos, 4.7, 20, 20);
        } /* End of 'EvalNormal' function */
       }; /* End of 'target_coords' class */
     target *Targets;
@@ -74,22 +90,36 @@ namespace ivgl
       /* Constructor of test unit */
       common_target( anim *Ani )
       {
+        IsShot = FALSE;
+        IsDebug = FALSE;
+        ScreenX = Ani->FrameW / 2;
+        ScreenY = Ani->FrameH / 2;
+
         Targets = new target[NumOfTargets];
         Prs.Load(&Prs, "bin/models/new_target.g3dm");
+        Bullets[0].Pr.Load(&Bullets[0].Pr, "bin/models/bullet_low.g3dm");
         for (INT i = 0; i < Prs.NumOfPrims; i++)
         {
           Prs.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
           Prs.Prims[i].Mtl->UpdateLoc();
         }
+        for (INT i = 0; i < Bullets[0].Pr.NumOfPrims; i++)
+        {
+          Bullets[0].Pr.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
+          Bullets[0].Pr.Prims[i].Mtl->UpdateLoc();
+        }
+        for (INT i = 0; i < NumOfBullets; i++)
+          Bullets[i].Pr = Bullets[0].Pr;
+
         for (INT i = 0; i < NumOfTargets; i++)
         {
-          vec3 v(math::Rnd0F() * 100);
+          vec3 v(math::Rnd0F() * 150);
 
           //v = v * 200;
           if (i % 2 == 0)
-            v = vec3(v[0], 5, v[2]);
+            v = vec3(v[0], 0.9, v[2]);
           else
-            v = vec3(-v[0], 5, v[2]);
+            v = vec3(-v[0], 0.9, v[2]);
           Targets[i].EvalNormal(v, 0);
           //Targets[i].
         }
@@ -98,6 +128,7 @@ namespace ivgl
       /* Destructor of test unit */
       ~common_target( VOID )
       {
+        delete [] Targets;
       } /* End of 'destructor' function */
       
      /* Unit response function.
@@ -108,47 +139,80 @@ namespace ivgl
       */
       VOID Response( anim *Ani ) override
       {
+        static INT Cnt = 0;
+
+        ScreenX = Ani->FrameW / 2;
+        ScreenY = Ani->FrameH / 2;
+        //SetCursorPos(ScreenX, ScreenY);
         MouseX = Ani->MouseX;
         MouseY = Ani->MouseY;
 
         std::string Buf;
-
+        if (Ani->KeysClick['G'])
+          IsDebug = !IsDebug;
+ 
         if (Ani->KeysClick['R'])
           for (INT i = 0; i < NumOfTargets; i++)
-            Targets[i].IsShoot = 0;
-
-        if (Ani->KeysClick[VK_LBUTTON] || Ani->KeysClick[VK_RETURN])
-        for (INT i = 0; i < NumOfTargets; i++)
-          if (!Targets[i].IsShoot)
           {
-            //vec3 P = Targets[i].Position;
-            //vec3 N = Targets[i].Norm;
-            //FLT D = -(P & N);
-            Ani->Camera.SetRay(MouseX, MouseY);
-            //math::ray<FLT> Ray = Ani->Camera.Ray;
-            //FLT t = - (N[0] * Ray.Org[0] + N[1] * Ray.Org[1] + N[2] * Ray.Org[2] + D) / 
-            //          (N[0] * Ray.Dir[0] + N[1] * Ray.Dir[1] + N[2] * Ray.Dir[2]);
-
-            //vec3 V = Ray.Org + Ray.Dir * t;
-
-            Targets[i].IsCross = FALSE;
-            //if (V < (Targets[i].Position + 4.0) && V > (Targets[i].Position - 4.0))
-            //  Targets[i].IsCross = TRUE;
-            if (Ani->Camera.Ray.SphereInter(Targets[i].Position, 4.5))
-              Targets[i].IsCross = TRUE;
-            if (Targets[i].IsCross)
-              Targets[i].IsShoot = TRUE;
+            Targets[i].IsShoot = 0;
+            Targets[i].EvalNormal(vec3(math::Rnd0F() * 150, 0.9, math::Rnd0F() * 150), 0);
           }
-        /*
-        Buf += std::to_string(Ani->FPS);
-        static FLT ReloadTime = 30.47;
-        ReloadTime += Ani->GlobalDeltaTime;
-        if (ReloadTime > 1)
-        {
-          OutputDebugStringA(Buf.c_str());
-          ReloadTime = 0;
-        }
-        */
+        if (Ani->KeysClick[VK_LBUTTON])
+          IsShot = TRUE;
+
+        // if (Ani->KeysClick[VK_LBUTTON])
+
+        if (Ani->KeysClick[VK_LBUTTON])
+          for (INT i = 0; i < NumOfTargets; i++)
+            if (!Targets[i].IsShoot)
+            {
+              //vec3 P = Targets[i].Position;
+              //vec3 N = Targets[i].Norm;
+              //FLT D = -(P & N);
+              Ani->Camera.SetRay(MouseX, MouseY);
+              //math::ray<FLT> Ray = Ani->Camera.Ray;
+              //FLT t = - (N[0] * Ray.Org[0] + N[1] * Ray.Org[1] + N[2] * Ray.Org[2] + D) / 
+              //          (N[0] * Ray.Dir[0] + N[1] * Ray.Dir[1] + N[2] * Ray.Dir[2]);
+
+              //vec3 V = Ray.Org + Ray.Dir * t;
+
+              Targets[i].IsCross = FALSE;
+              //if (V < (Targets[i].Position + 4.0) && V > (Targets[i].Position - 4.0))
+              //  Targets[i].IsCross = TRUE;
+              if (Ani->Camera.Ray.SphereInter(Targets[i].Position, 9))
+                Targets[i].IsCross = TRUE;
+              if (Targets[i].IsCross)
+                Targets[i].IsShoot = TRUE;
+            }
+       //if (IsShot)
+       //{
+       //  vec3 l = Ani->Camera.Loc;
+       //  math::camera<FLT> Cam = Ani->Camera;
+       //  for (INT j = 0; j < 5; j++)
+       //  {
+       //    vec3 Dir1 = (Cam.At - Cam.Loc).Normalizing();
+       //    Dir1[1] = 0;
+
+       //    Bullets[Cnt].Pos = Cam.Loc;
+       //    Cam.Loc += Dir1 * 8;
+       //    Bullets[Cnt].Dir = (Cam.At - Cam.Loc).Normalizing();
+       //    Bullets[Cnt++].Dir[1] = 0;        
+       //    if (Cnt > 255)
+       //    {
+       //      for (INT i = 0; i < 255; i++)
+       //        /*Bullets[i].Pos, */Bullets[i].Dir = vec3(0);
+       //      Cnt = 0;
+       //    }
+       //  }
+       //  Cam.Loc = l;
+       //  IsShot = FALSE;
+       //}
+       //for (INT i = 0; i < Cnt; i++)
+       // {
+       //   Bullets[i].Pr.Transform = Bullets[i].Pr.Transform * matr::Translate(Bullets[i].Dir * Ani->DeltaTime * 100);
+       //   Bullets[i].Pos += Bullets[i].Dir * Ani->DeltaTime * 100;
+       // }
+
       } /* End of 'Response' function */
 
      /* Unit render function.
@@ -161,7 +225,10 @@ namespace ivgl
       {
         for (INT i = 0; i < NumOfTargets; i++)
         {
-          Ani->PrimDraw(Targets[i].Sphere, matr::Identity());
+          //Targets[i].Position[1] += 360.0f / i + Ani->Time * 40;
+          //Targets[i].Sphere = Ani->primitive_manager::PrimCreateSphere(Targets[i].Position, 4.7, 20, 20);
+          if (IsDebug)
+            Ani->PrimDraw(Targets[i].Sphere, matr::Identity());
           if (!Targets[i].IsShoot)
           {
             FLT angle;
@@ -170,11 +237,17 @@ namespace ivgl
             else
               angle = 180 + math::R2D(atan(Ani->Camera.Dir[0] / Ani->Camera.Dir[2]));
             //Targets[i].EvalNormal(Targets[i].Position + vec3(sin(Ani->Time) * Targets[i].RandomCoef / 3 + Targets[i].RandomCoef, 0, sin(Ani->Time) * Targets[i].RandomCoef / 3 + Targets[i].RandomCoef) / 10 * Targets[i].RandomCoef, angle);
-            Ani->PrimitivesDraw(&Prs, matr::Scale(vec3(1, 1, 0.1)) * Targets[i].Trans);
+            Ani->PrimitivesDraw(&Prs, matr::Scale(vec3(0.6, 0.6, 0.1)) * Targets[i].Trans/* *
+              matr::RotateY(360.0f / i + Ani->Time * 40) */);
           }
           else
-            Ani->PrimitivesDraw(&Prs, matr::Scale(vec3(1, 1, 0.1)) * matr::RotateX(-90.0f) * Targets[i].Trans * matr::Translate(vec3(0, -4, -5)));
-
+            Ani->PrimitivesDraw(&Prs, matr::Scale(vec3(0.6, 0.6, 0.1)) * matr::RotateX(-90.0f) * Targets[i].Trans * matr::Translate(vec3(0, 1, -0)));
+        }
+        for (INT i = 0; i < NumOfBullets; i++)
+        {
+          vec3 v = Ani->Camera.Loc;
+          //v[1] += 1;
+          //Ani->PrimitivesDraw(&Bullets[i].Pr, matr::RotateX(-90.0f) * matr::Translate(v));
         }
       } /* End of 'Render' function */
     }; /* End of 'common_target' class */

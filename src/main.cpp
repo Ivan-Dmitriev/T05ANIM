@@ -38,12 +38,12 @@
   */
 INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, CHAR *CmdLine, INT CmdShow )
 {
-  /*
-  ivgl::matr m(1, 3, 13, 14,
-         3, 47, 16, 17,
-         30, 8, 9, 10,
-         45, 34, 123, 12);
-  */
+  //ivgl::matr m(1, 3, 13, 14,
+  //             3, 47, 16, 17,
+  //             30, 8, 9, 10,
+  //             45, 34, 123, 12), m2;
+  //m2 = m;
+  //m2 = m * m2;
   //ivgl::matr asd;
   //asd = m.Transpose();
   //ivgl::win myw;
@@ -56,8 +56,8 @@ INT WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, CHAR *CmdLine,
   //myw << "ControlUnit" <<  "Mobius";
   //myw << "ControlUnit" << "FinalUnit";
   //myw << "new";
-  //myw << "ControlUnit" << "LandUnit";
-  myw << "FinalUnit" << "TargetUnit";
+  myw << "SkyUnit" << "LandUnit" << "TargetUnit" << "FinalUnit";
+  //myw << "FinalUnit" << "TargetUnit";
 
   return myw.Run();
 } /* End of 'WinMain' function */
