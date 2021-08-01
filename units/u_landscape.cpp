@@ -99,6 +99,7 @@ namespace ivgl
       {
         Bush1.Free();
         Tree.Free();
+        Bush2.Free();
         //FreeConsole();
       } /* End of 'destructor' function */
       

@@ -2,7 +2,8 @@ T05ANIM.sln
 T05ANIM.vcxproj
 T05ANIM.vcxproj.filters
 T05ANIM.vcxproj.user
-bin/textures
 bin/models
+bin/textures
 .vs
 Debug
+Release

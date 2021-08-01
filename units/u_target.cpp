@@ -18,7 +18,7 @@
 
 #include "../src/anim/anim.h"
 
-#define NumOfTargets 20
+#define NumOfTargets 30
 #define NumOfBullets 250
 
 /* Project namespace */
@@ -106,7 +106,7 @@ namespace ivgl
 
         for (INT i = 0; i < NumOfTargets; i++)
         {
-          vec3 v(math::Rnd0F() * 150);
+          vec3 v(math::Rnd0F() * 300);
 
           //v = v * 200;
           if (i % 2 == 0)
@@ -147,7 +147,7 @@ namespace ivgl
           for (INT i = 0; i < NumOfTargets; i++)
           {
             Targets[i].IsShoot = 0;
-            Targets[i].EvalNormal(vec3(math::Rnd0F() * 150, 0.9, math::Rnd0F() * 150), 0);
+            Targets[i].EvalNormal(vec3(math::Rnd0F() * 300, 0.9, math::Rnd0F() * 300), 0);
           }
 
         if (Ani->KeysClick[VK_LBUTTON])

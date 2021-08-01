@@ -146,24 +146,24 @@ namespace ivgl
 
         //if (Ani->Camera.Dir[1] < 0.95 && Ani->Camera.Dir[1] > -0.95)
           if (Ani->Keys[VK_LBUTTON] || Ani->Keys[VK_LEFT] || Ani->Keys[VK_RIGHT])
-            Ani->Camera.Rotate(vec3(0, 1, 0), (-Ani->Keys[VK_LBUTTON] * Ani->MouseDX * 0.1 +
+            Ani->Camera.Rotate(vec3(0, 1, 0), (-Ani->Keys[VK_LBUTTON] * Ani->MouseDX +
                                                (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT])) * Ani->GlobalDeltaTime * 130);
 
         //if (Ani->Camera.Dir[1] < 0.95 && Ani->Camera.Dir[1] > -0.95)
           if (Ani->Keys[VK_LBUTTON] || Ani->Keys[VK_UP] || Ani->Keys[VK_DOWN])
-            Ani->Camera.Rotate(Ani->Camera.Right, (-Ani->Keys[VK_LBUTTON] * Ani->MouseDY * 0.1 +
+            Ani->Camera.Rotate(Ani->Camera.Right, (-Ani->Keys[VK_LBUTTON] * Ani->MouseDY +
                                                    (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime * 130);
 
         {
-          Ani->Camera.Rotate(math::vec3<FLT>(0, 1, 0), (15 * -1 * Ani->MouseDX +
-                                                100 * (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
+          Ani->Camera.Rotate(math::vec3<FLT>(0, 1, 0), (9 * -1 * Ani->MouseDX +
+                                                2 * (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
           //HandsRotate *= matr::Rotate(-math::vec3<FLT>(0, 1, 0), (100 * 1 * Ani->MouseDX +
           //                                      -30 * (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
         }
         if (Ani->Camera.Dir[1] < 0.95)
         {
-          Ani->Camera.Rotate(Ani->Camera.Right, (15 * -1 * Ani->MouseDY +
-                                                  100 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
+          Ani->Camera.Rotate(Ani->Camera.Right, (9 * -1 * Ani->MouseDY +
+                                                  2 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
         }
         //if (Ani->Keys[VK_LBUTTON] && Ani->Camera.Dir.Y < 0.95 && Ani->MouseDY <= 0)
         //if (Ani->Camera.Dir[1] < 0.95)
