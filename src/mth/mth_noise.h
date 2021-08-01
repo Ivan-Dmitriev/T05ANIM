@@ -21,7 +21,7 @@
 
 #include "mthdef.h"
 
-namespace mth
+namespace math
 {
   /* Noise table size constants */
   auto constexpr TAB_SIZE = (1 << 10);

@@ -32,8 +32,8 @@ namespace ivgl
     class final_unit : public unit  
     {
     public:
-      matr HandsRotate = matr::Translate(vec3(-0.5, -0.3, 0.1)) * matr::RotateY(90) ; // Rotate hands matrix
-      matr HandsPos = matr::Identity();                                               // Position hands matrix
+      //matr HandsRotate = matr::Translate(vec3(-0.5, -0.3, 0.1)) * matr::RotateY(90) ; // Rotate hands matrix
+      //matr HandsPos = matr::Identity();                                               // Position hands matrix
 
       prim * Cube;
       prim * BigCube;
@@ -57,14 +57,14 @@ namespace ivgl
       /* Constructor of test unit */
       final_unit( anim *Ani )
       {
-        for (INT i = 0; i < NUM_OF_TARGETS; i++)
-          Tar_positions[i] = vec3(math::Rnd1F() * 100, 5, math::Rnd1F() * 100);
+        //for (INT i = 0; i < NUM_OF_TARGETS; i++)
+        //  Tar_positions[i] = vec3(math::Rnd1F() * 100, 5, math::Rnd1F() * 100);
 
         //Ani->FlipFullScreen();
         //Ani->Camera.Resize(Ani->FrameW, Ani->FrameH);
 
-        Cube = Ani->primitive_manager::PrimCreateBox(vec3(5, 10, 5), vec3(-5, -10, -5));
-        BigCube = Ani->primitive_manager::PrimCreateBox(vec3(150, 1, 150), vec3(-150, -1, -150));
+        //Cube = Ani->primitive_manager::PrimCreateBox(vec3(5, 10, 5), vec3(-5, -10, -5));
+        BigCube = Ani->primitive_manager::PrimCreateBox(vec3(320, 1, 320), vec3(-320, -1, -320));
         //BigCube->Mtl->Tex[0] = nullptr;
         Sphere = Ani->primitive_manager::PrimCreateSphere(vec3(0, 0, 0), 10, 20, 20);
         vec3 Ka(0.10588, 0.058824, 0.113725);
@@ -74,15 +74,15 @@ namespace ivgl
         std::string name = "peweter";
 
         Gun.Load(&Gun, "bin/models/arms_new.g3dm");
-        FirstTarget.Load(&FirstTarget, "bin/models/target.g3dm");
-        for (INT i = 0; i < FirstTarget.NumOfPrims; i++)
-        {
-          FirstTarget.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
-          FirstTarget.Prims[i].Mtl->UpdateLoc();
+        //FirstTarget.Load(&FirstTarget, "bin/models/target.g3dm");
+        //for (INT i = 0; i < FirstTarget.NumOfPrims; i++)
+        //{
+        //  FirstTarget.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
+        //  FirstTarget.Prims[i].Mtl->UpdateLoc();
           //Boxes = Ani->primitive_manager::PrimCreateBox(Target.Prims[0].Min, Target.Prims[0].Max);
-        }
-        for (INT i = 0; i < NUM_OF_TARGETS; i++)
-          Target[i] = FirstTarget;
+        //}
+        //for (INT i = 0; i < NUM_OF_TARGETS; i++)
+        //  Target[i] = FirstTarget;
 
         for (INT i = 0; i < Gun.NumOfPrims; i++)
         {
@@ -99,7 +99,7 @@ namespace ivgl
       /* Destructor of test unit */
       ~final_unit( VOID )
       {
-        Cube->Free();
+        //Cube->Free();
         Sphere->Free();
       } /* End of 'destructor' function */
 
@@ -146,40 +146,44 @@ namespace ivgl
 
         //if (Ani->Camera.Dir[1] < 0.95 && Ani->Camera.Dir[1] > -0.95)
           if (Ani->Keys[VK_LBUTTON] || Ani->Keys[VK_LEFT] || Ani->Keys[VK_RIGHT])
-            Ani->Camera.Rotate(vec3(0, 1, 0), (-Ani->Keys[VK_LBUTTON] * Ani->MouseDX +
+            Ani->Camera.Rotate(vec3(0, 1, 0), (-Ani->Keys[VK_LBUTTON] * Ani->MouseDX * 0.1 +
                                                (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT])) * Ani->GlobalDeltaTime * 130);
 
         //if (Ani->Camera.Dir[1] < 0.95 && Ani->Camera.Dir[1] > -0.95)
           if (Ani->Keys[VK_LBUTTON] || Ani->Keys[VK_UP] || Ani->Keys[VK_DOWN])
-            Ani->Camera.Rotate(Ani->Camera.Right, (-Ani->Keys[VK_LBUTTON] * Ani->MouseDY +
+            Ani->Camera.Rotate(Ani->Camera.Right, (-Ani->Keys[VK_LBUTTON] * Ani->MouseDY * 0.1 +
                                                    (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime * 130);
 
         {
-          //Ani->Camera.Rotate(math::vec3<FLT>(0, 1, 0), (50 * -1 * Ani->MouseDX +
-          //                                      100 * (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
+          Ani->Camera.Rotate(math::vec3<FLT>(0, 1, 0), (15 * -1 * Ani->MouseDX +
+                                                100 * (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
           //HandsRotate *= matr::Rotate(-math::vec3<FLT>(0, 1, 0), (100 * 1 * Ani->MouseDX +
           //                                      -30 * (Ani->Keys[VK_LEFT] - Ani->Keys[VK_RIGHT])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
         }
-
-        //if (Ani->Keys[VK_LBUTTON] && Ani->Camera.Dir.Y < 0.95 && Ani->MouseDY <= 0)
         if (Ani->Camera.Dir[1] < 0.95)
         {
+          Ani->Camera.Rotate(Ani->Camera.Right, (15 * -1 * Ani->MouseDY +
+                                                  100 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
+        }
+        //if (Ani->Keys[VK_LBUTTON] && Ani->Camera.Dir.Y < 0.95 && Ani->MouseDY <= 0)
+        //if (Ani->Camera.Dir[1] < 0.95)
+        //{
           //Ani->Camera.Rotate(Ani->Camera.Right, (100 * -1 * Ani->MouseDY +
           //                                        100 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
           //HandsRotate *= matr::Rotate(-Ani->Camera.Right, (100 * 1 * Ani->MouseDY +
           //                                        -30 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
-        }
+        //}
 
         //if (Ani->Keys[VK_LBUTTON] && Ani->Camera.Dir[1] > -0.95 && Ani->MouseDY >= 0)
-          if (Ani->Camera.Dir[1] > -0.95)
-          {
+          //if (Ani->Camera.Dir[1] > -0.95)
+          //{
             //Ani->Camera.Rotate(Ani->Camera.Right, (100 * -1 * Ani->MouseDY +
             //                                        100 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
             //HandsRotate *= matr::Rotate(-Ani->Camera.Right, (100 * 1 * Ani->MouseDY +
             //                                        -30 * (Ani->Keys[VK_UP] - Ani->Keys[VK_DOWN])) * Ani->GlobalDeltaTime / (IsAim + 0.5));
-          }
-        vec3 Pos = vec3(Ani->Camera.Loc[0], Ani->Camera.Loc[1], Ani->Camera.Loc[2]);
-        HandsPos = matr::Translate(Pos);
+          //}
+        //vec3 Pos = vec3(Ani->Camera.Loc[0], Ani->Camera.Loc[1], Ani->Camera.Loc[2]);
+        //HandsPos = matr::Translate(Pos);
         if (Ani->Keys[VK_RBUTTON] || Ani->Keys[VK_RCONTROL])
         {
           if (!IsAim)

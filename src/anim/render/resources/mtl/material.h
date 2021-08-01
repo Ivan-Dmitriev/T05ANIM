@@ -51,7 +51,8 @@ namespace ivgl
     INT TimeUniLoc = -1;
     INT MatrWVPLoc = -1;;
     INT MatrWPLoc = -1;
-    INT MatrWInvLoc = -1;;
+    INT MatrWInvLoc = -1;
+    INT TransLoc = -1;            /* Array of transform matrices */
 
     texture *Tex[8];              /* Texture references from texture table (or -1) */
     INT IsTextures[8];

@@ -17,5 +17,6 @@
 #include "mth_matr.h"
 #include "mth_camera.h"
 #include "mth_ray.h"
+#include "mth_noise.h"
 
 #endif /* __mth_h_ */

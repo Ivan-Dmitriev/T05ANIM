@@ -17,6 +17,7 @@
  */
 
 #include "../src/anim/anim.h"
+#define NumOfObjects 200
 
 /* Project namespace */
 namespace ivgl
@@ -28,30 +29,77 @@ namespace ivgl
     class land_unit : public unit  
     {
       primitives Land;
+      primitives Tree;
+      primitives Tree2;
+
+      primitives Bush1;
+      primitives Bush2;
+
+      vec3 ArrayOfCoords[NumOfObjects];
+      INT RandomRotate[NumOfObjects];
 
     public:
       /* Constructor of test unit */
       land_unit( anim *Ani )
       {
+        math::noise<FLT> Noise;
         /*
         AllocConsole();
         freopen("CONOUT$", "w", stdout);
         system("chcp 1251");
         */
-        Land.Load(&Land, "bin/models/graccy_mountains.g3dm");
-        for (INT i = 0; i < Land.NumOfPrims; i++)
+        //Land.Load(&Land, "bin/models/tree.g3dm");
+        Bush1.Load(&Bush1, "bin/models/Bushes_with_berries.g3dm");
+        Bush2.Load(&Bush2, "bin/models/Bushes.g3dm");
+
+        Tree.Load(&Tree, "bin/models/fat_tree.g3dm");
+        
+        for (INT i = 0; i < Bush1.NumOfPrims; i++)
         {
-          Land.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
-          Land.Prims[i].Mtl->UpdateLoc();
+          Bush1.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TREE");
+          Bush1.Prims[i].Mtl->UpdateLoc();
         }
+        for (INT i = 0; i < Bush1.NumOfPrims; i++)
+        {
+          Bush2.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TREE");
+          Bush2.Prims[i].Mtl->UpdateLoc();
+        }
+
+        //for (INT i = 0; i < Land.NumOfPrims; i++)
+        //{
+          //Land.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
+          //Land.Prims[i].Mtl->UpdateLoc();
+        //}
+        for (INT i = 0; i < NumOfObjects; i++)
+        {
+          FLT X = Noise.Noise1D(i * 4 + 7);
+          FLT Z = Noise.Noise1D(i * 2 + 1);
+          if (i % 4 == 0)
+            ArrayOfCoords[i] = vec3(X, 0, Z);
+          else if (i % 4 == 1)
+            ArrayOfCoords[i] = vec3(-X, 0, Z);
+          else if (i % 4 == 2)
+            ArrayOfCoords[i] = vec3(-X, 0, -Z);
+          else if (i % 4 == 3)
+            ArrayOfCoords[i] = vec3(X, 0, -Z);
+  
+          ArrayOfCoords[i] = ArrayOfCoords[i] * 300;
+          RandomRotate[i] = Noise.Noise1D(i * 5 + 1);
+        }
+
+        //INT loc;
+        //INT id = Bush1.Prims[0].Mtl->shd->ProgId;
+        //glUseProgram(id);
+        //if ((loc = glGetUniformLocation(id, "Transform[0]")) != -1)
+        //  glUniform3fv(loc, NumOfObjects, ArrayOfCoords[0]);
 
       } /* End of 'constructor' function */
       /* Destructor of test unit */
       ~land_unit( VOID )
       {
-        Land.Free();
+        Bush1.Free();
+        Tree.Free();
         //FreeConsole();
-
       } /* End of 'destructor' function */
       
      /* Unit response function.
@@ -62,9 +110,9 @@ namespace ivgl
       */
       VOID Response( anim *Ani ) override
       {
-        static DBL ReloadTime = 0;
+        //static DBL ReloadTime = 0;
 
-        ReloadTime += Ani->GlobalDeltaTime;
+        //ReloadTime += Ani->GlobalDeltaTime;
 
         /* Update shafer */
         //if (ReloadTime > 3)
@@ -73,11 +121,11 @@ namespace ivgl
         //  ReloadTime = 0;
         //}
 
-        CHAR Buf[100];
+        //CHAR Buf[100];
 
-        sprintf(Buf, "%f\n", Ani->FPS);
+        //sprintf(Buf, "%f\n", Ani->FPS);
 
-        OutputDebugStringA(Buf);
+        //OutputDebugStringA(Buf);
       } /* End of 'Response' function */
 
      /* Unit render function.
@@ -88,7 +136,22 @@ namespace ivgl
       */
       VOID Render( anim *Ani ) override
       {
-        Ani->PrimitivesDraw(&Land, matr::Scale(vec3(100.0f)));
+        for (INT i = 0; i < NumOfObjects; i++)
+        {
+          vec3 v = ArrayOfCoords[i];
+          vec3 v1 = v;
+          v1[2] += 10;
+          v1[0] += 10;
+
+          Ani->PrimitivesDraw(&Bush1, matr::Scale(vec3(10.0f)) * matr::Translate(ArrayOfCoords[i]));
+          Ani->PrimitivesDraw(&Bush2, matr::Scale(vec3(4.0f)) * matr::Translate(v1) * matr::RotateY(RandomRotate[i] * 30));
+
+          v[0] += 10;
+          Ani->PrimitivesDraw(&Tree, matr::Translate(v));
+        }
+        //Ani->PrimitivesDraw(&Bush1, matr::Scale(vec3(10.0f)));
+
+        //Ani->PrimitivesDraw(&Tree, matr::Scale(vec3(10.0f)));
       } /* End of 'Render' function */
     }; /* End of 'land_unit' class */
   } /* end of 'units' namespace */

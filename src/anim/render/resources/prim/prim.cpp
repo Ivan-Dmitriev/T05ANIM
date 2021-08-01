@@ -332,7 +332,7 @@ namespace ivgl
       }
       else if (Pr->IBuf == 0)
         glDrawArrays(gl_prim_type, 0, Pr->NumOfElements);
-      else
+      else if (Pr->IBuf != 0)
       {
         /* making an array of indexes active */
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, Pr->IBuf);
@@ -344,11 +344,9 @@ namespace ivgl
     }
     else
     {
-      glBindVertexArray(Pr->VA);
+      //glBindVertexArray(Pr->VA);
       glDrawArraysInstanced(gl_prim_type, 0, Pr->NumOfElements, Pr->InstCount);
-      glBindVertexArray(0);
     }
-
     /* disable vertex array */
     glBindVertexArray(0);
   } /* End of 'PrimDraw' function */

@@ -55,6 +55,7 @@ namespace ivgl
         MatrWInvLoc = glGetUniformLocation(shd->ProgId, "MatrVInv");
         MatrWPLoc = glGetUniformLocation(shd->ProgId, "MatrWP");
         MatrWVPLoc = glGetUniformLocation(shd->ProgId, "MatrWVP");
+        //TransLoc = glGetUniformLocation(shd->ProgId, "Trans[0]");
 
         /* Set textures */
         for (INT i = 0; i < 8; i++)

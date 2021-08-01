@@ -48,19 +48,19 @@ namespace ivgl
   */
   VOID render::StartFrame( VOID )
   {
-    static DBL ReloadTime = 0;
+    //static DBL ReloadTime = 0;
 
     anim *myanim = anim::GetPtr();
 
-    ReloadTime += myanim->GlobalDeltaTime;
+    //ReloadTime += myanim->GlobalDeltaTime;
 
     /* Update shafer */
-    if (ReloadTime > 5)
-    {
-      shader_manager::UpdateShaders();
+    //if (ReloadTime > 5)
+    //{
+    //  shader_manager::UpdateShaders();
 
-      ReloadTime = 0;
-    }
+    //  ReloadTime = 0;
+    //}
 
     /* Clear frame */
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

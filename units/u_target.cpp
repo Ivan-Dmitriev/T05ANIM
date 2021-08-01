@@ -38,12 +38,12 @@ namespace ivgl
       BOOL IsShot;
       
       /* Bullet struct array */
-      struct tagBULLET
-      {
-        primitives Pr; /* Bullet as primitive */
-        vec3 Dir;     /* Direction */
-        vec3 Pos;     /* Bullet position */
-      } Bullets[256];
+      //struct tagBULLET
+      //{
+      //  primitives Pr; /* Bullet as primitive */
+      //  vec3 Dir;     /* Direction */
+      //  vec3 Pos;     /* Bullet position */
+      //} Bullets[256];
 
       /* Target coordinates class */
       class target
@@ -97,19 +97,12 @@ namespace ivgl
 
         Targets = new target[NumOfTargets];
         Prs.Load(&Prs, "bin/models/new_target.g3dm");
-        Bullets[0].Pr.Load(&Bullets[0].Pr, "bin/models/bullet_low.g3dm");
+
         for (INT i = 0; i < Prs.NumOfPrims; i++)
         {
           Prs.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
           Prs.Prims[i].Mtl->UpdateLoc();
         }
-        for (INT i = 0; i < Bullets[0].Pr.NumOfPrims; i++)
-        {
-          Bullets[0].Pr.Prims[i].Mtl->shd = Ani->shader_manager::ShaderCreate("TARGET");
-          Bullets[0].Pr.Prims[i].Mtl->UpdateLoc();
-        }
-        for (INT i = 0; i < NumOfBullets; i++)
-          Bullets[i].Pr = Bullets[0].Pr;
 
         for (INT i = 0; i < NumOfTargets; i++)
         {
@@ -121,7 +114,6 @@ namespace ivgl
           else
             v = vec3(-v[0], 0.9, v[2]);
           Targets[i].EvalNormal(v, 0);
-          //Targets[i].
         }
       } /* End of 'constructor' function */
       
@@ -157,10 +149,6 @@ namespace ivgl
             Targets[i].IsShoot = 0;
             Targets[i].EvalNormal(vec3(math::Rnd0F() * 150, 0.9, math::Rnd0F() * 150), 0);
           }
-        if (Ani->KeysClick[VK_LBUTTON])
-          IsShot = TRUE;
-
-        // if (Ani->KeysClick[VK_LBUTTON])
 
         if (Ani->KeysClick[VK_LBUTTON])
           for (INT i = 0; i < NumOfTargets; i++)
@@ -184,35 +172,6 @@ namespace ivgl
               if (Targets[i].IsCross)
                 Targets[i].IsShoot = TRUE;
             }
-       //if (IsShot)
-       //{
-       //  vec3 l = Ani->Camera.Loc;
-       //  math::camera<FLT> Cam = Ani->Camera;
-       //  for (INT j = 0; j < 5; j++)
-       //  {
-       //    vec3 Dir1 = (Cam.At - Cam.Loc).Normalizing();
-       //    Dir1[1] = 0;
-
-       //    Bullets[Cnt].Pos = Cam.Loc;
-       //    Cam.Loc += Dir1 * 8;
-       //    Bullets[Cnt].Dir = (Cam.At - Cam.Loc).Normalizing();
-       //    Bullets[Cnt++].Dir[1] = 0;        
-       //    if (Cnt > 255)
-       //    {
-       //      for (INT i = 0; i < 255; i++)
-       //        /*Bullets[i].Pos, */Bullets[i].Dir = vec3(0);
-       //      Cnt = 0;
-       //    }
-       //  }
-       //  Cam.Loc = l;
-       //  IsShot = FALSE;
-       //}
-       //for (INT i = 0; i < Cnt; i++)
-       // {
-       //   Bullets[i].Pr.Transform = Bullets[i].Pr.Transform * matr::Translate(Bullets[i].Dir * Ani->DeltaTime * 100);
-       //   Bullets[i].Pos += Bullets[i].Dir * Ani->DeltaTime * 100;
-       // }
-
       } /* End of 'Response' function */
 
      /* Unit render function.
@@ -242,12 +201,6 @@ namespace ivgl
           }
           else
             Ani->PrimitivesDraw(&Prs, matr::Scale(vec3(0.6, 0.6, 0.1)) * matr::RotateX(-90.0f) * Targets[i].Trans * matr::Translate(vec3(0, 1, -0)));
-        }
-        for (INT i = 0; i < NumOfBullets; i++)
-        {
-          vec3 v = Ani->Camera.Loc;
-          //v[1] += 1;
-          //Ani->PrimitivesDraw(&Bullets[i].Pr, matr::RotateX(-90.0f) * matr::Translate(v));
         }
       } /* End of 'Render' function */
     }; /* End of 'common_target' class */
