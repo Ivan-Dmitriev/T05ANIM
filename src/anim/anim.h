@@ -160,7 +160,7 @@ namespace ivgl
     VOID GetCurrentDir( VOID )
     {
       CHAR Buf[_MAX_PATH];
-      GetCurrentDirectory(sizeof(Buf), (LPWSTR)Buf);
+      GetCurrentDirectory(sizeof(Buf), Buf);
       anim::Path = Buf;
     } /* End of 'GetCurrentDir' function */
 

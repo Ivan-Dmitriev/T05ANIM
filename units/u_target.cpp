@@ -17,6 +17,8 @@
  */
 
 #include "../src/anim/anim.h"
+#include "../utils/player.h"
+//#include "../bin/music/"
 
 #define NumOfTargets 30
 #define NumOfBullets 250
@@ -30,6 +32,9 @@ namespace ivgl
     /* First unit test */
     class common_target : public unit  
     {
+    public:
+      ivgl::player P;
+
     private:
       FLT MouseX;
       FLT MouseY;
@@ -90,6 +95,7 @@ namespace ivgl
       /* Constructor of test unit */
       common_target( anim *Ani )
       {
+        P << "//bin//music//DeathFlash.wav";
         IsShot = FALSE;
         IsDebug = FALSE;
         ScreenX = Ani->FrameW / 2;
@@ -151,6 +157,8 @@ namespace ivgl
           }
 
         if (Ani->KeysClick[VK_LBUTTON])
+        {
+          //P.SetLooping(ivgl::player::REPEAT_ALL);
           for (INT i = 0; i < NumOfTargets; i++)
             if (!Targets[i].IsShoot)
             {
@@ -171,7 +179,10 @@ namespace ivgl
                 Targets[i].IsCross = TRUE;
               if (Targets[i].IsCross)
                 Targets[i].IsShoot = TRUE;
+              P.Play(0);
+
             }
+          }
       } /* End of 'Response' function */
 
      /* Unit render function.

@@ -61,6 +61,9 @@
     <Filter Include="Source Files\Units">
       <UniqueIdentifier>{e9551a45-b9e2-4e4c-be54-e355a805b36f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utilities">
+      <UniqueIdentifier>{cca78f5c-176c-4da8-ae9c-60db7d64a0b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\mth\mthdef.h">
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="src\mth\mth_noise.h">
       <Filter>Source Files\Source\Math Suppport</Filter>
+    </ClInclude>
+    <ClInclude Include="utils\player.h">
+      <Filter>Source Files\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

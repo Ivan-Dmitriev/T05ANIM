@@ -41,13 +41,13 @@ namespace ivgl
     wc.hIcon = LoadIcon(nullptr, IDI_SHIELD);
     wc.hInstance = hInstance;
     wc.lpszMenuName = nullptr;
-    wc.lpszClassName = L"My WindowClass";
+    wc.lpszClassName = "My WindowClass";
     wc.lpfnWndProc = WinFunc;
     if (!RegisterClass(&wc))
-      MessageBox(nullptr, L"Error register window class", L"ERROR", MB_OK | MB_ICONERROR);
+      MessageBox(nullptr, "Error register window class", "ERROR", MB_OK | MB_ICONERROR);
 
     /* Create window */
-    hWnd = CreateWindow(L"My WindowClass", L"3D animation", WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+    hWnd = CreateWindow("My WindowClass", "3D animation", WS_OVERLAPPEDWINDOW | WS_VISIBLE,
       CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
       nullptr, nullptr, hInstance, reinterpret_cast<VOID *>(this));
 

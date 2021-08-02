@@ -113,12 +113,12 @@ namespace ivgl
       /* Initialize GLEW library */
       if (glewInit() != GLEW_OK)
       {
-        MessageBox(hWnd, L"Error OpenGL initialization", L"ERROR", MB_ICONERROR | MB_OK);
+        MessageBox(hWnd, "Error OpenGL initialization", "ERROR", MB_ICONERROR | MB_OK);
         exit(0);
       }
       if (!(GLEW_ARB_vertex_shader && GLEW_ARB_fragment_shader))
       {
-        MessageBox(hRndWnd,L"Error: no shaders support", L"Error", MB_ICONERROR | MB_OK);
+        MessageBox(hRndWnd, "Error: no shaders support", "Error", MB_ICONERROR | MB_OK);
         exit(0);
       }
       /* Enable a new OpenGL profile support */
